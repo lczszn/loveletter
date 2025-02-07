@@ -25,37 +25,40 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            font-size: 1.8rem;
-            padding: 20px;
             scroll-snap-align: start;
-            transition: opacity 1s ease-in-out;
-            color: white;
-            text-align: center;
+            padding: 20px;
             width: 100%;
         }
-        /* Fondos de colores lindos */
+        /* Estilos de las tarjetas */
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            max-width: 80%;
+            text-align: center;
+        }
+        /* Fondos de cada sección */
         .section:nth-child(1) { background: #FFB6C1; }
         .section:nth-child(2) { background: #FF69B4; }
-        .section:nth-child(3) { background: #FFA07A; }
-        .section:nth-child(4) { background: linear-gradient(135deg, #ff758c, #ff7eb3); }
-        .section:nth-child(5) { background: linear-gradient(135deg, #ffb6c1, #ff69b4); }
-        .section:nth-child(6) { background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
-        .section:nth-child(7) { background: #FFC0CB; }
-        
+        .section:nth-child(3) { background: linear-gradient(135deg, #ff758c, #ff7eb3); }
+        .section:nth-child(4) { background: linear-gradient(135deg, #ffb6c1, #ff69b4); }
+        .section:nth-child(5) { background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
+        .section:nth-child(6) { background: #FFC0CB; }
+
         .image {
             max-width: 90%;
             max-height: 60vh;
             margin-top: 10px;
             border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
-        
+
         .buttons {
             display: flex;
             justify-content: center;
             margin-top: 20px;
         }
-        
+
         .btn {
             padding: 15px 30px;
             font-size: 1.5rem;
@@ -64,25 +67,22 @@
             margin: 10px;
             transition: transform 0.2s ease-in-out;
             width: 120px;
+            border-radius: 10px;
         }
-        
-        .yes { background: #4CAF50; color: white; border-radius: 5px; }
-        .no { background: red; color: white; position: relative; border-radius: 5px; }
 
-        /* Botón de inicio */
-        #startButton {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+        .yes { background: #4CAF50; color: white; }
+        .no { background: red; color: white; position: relative; }
+
+        /* Botón de reproducir música */
+        .playMusicBtn {
             background: #FF69B4;
             color: white;
-            font-size: 1.5rem;
-            padding: 20px;
+            font-size: 1rem;
+            padding: 10px;
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            z-index: 1000;
+            margin-top: 10px;
         }
 
         /* Animación de corazones */
@@ -109,68 +109,58 @@
         }
 
         @media (max-width: 600px) {
-            .section {
-                font-size: 1.4rem;
-                padding: 15px;
-            }
-            .btn {
-                font-size: 1.2rem;
-                width: 100px;
-                padding: 10px;
-            }
-            .image {
-                max-width: 95%;
-                max-height: 50vh;
-            }
+            .card { max-width: 90%; padding: 15px; }
+            .section { padding: 15px; }
+            .btn { font-size: 1.2rem; width: 100px; padding: 10px; }
+            .image { max-width: 95%; max-height: 50vh; }
         }
     </style>
 </head>
 <body>
 
-    <button id="startButton" onclick="startExperience()">🎶 Iniciar Sorpresa</button>
-
     <audio id="song1" src="sure_thing.mp3"></audio>
     <audio id="song2" src="bound_2.mp3"></audio>
     <audio id="song3" src="convoy.mp3"></audio>
 
-    <div class="section"><p>Oh, no es una página de BNF...</p></div>
-    <div class="section"><p>¿Qué es esto, Lucas???</p></div>
-    <div class="section"><p>¿Qué tiene Lucas en la mano???</p></div>
-    <div class="section"><p>🎉 ¡SORPRESA! 🎉</p></div>
-    <div class="section"><p>Es una página para decirte lo mucho que Lucas te ama ❤️</p></div>
-    <div class="section"><p>Para mostrarte lo bien que se siente contigo</p><img src="1.jfif" class="image"></div>
-    <div class="section"><p>Para mostrarte lo seguro que se siente contigo</p><img src="2.jfif" class="image"></div>
-    <div class="section"><p>A pesar de que no te guste Kanye West...</p><script>pauseMusic(); playMusic('song2');</script></div>
-    <div class="section"><p>Él sabe que te gusta más otras canciones...</p><script>pauseMusic(); playMusic('song3');</script></div>
-    <div class="section"><p>Quiere hacerte una pregunta importante...</p><script>playMusic('song1');</script></div>
-
+    <div class="section"><div class="card"><p>Oh, no es una página de BNF...</p></div></div>
+    <div class="section"><div class="card"><p>¿Qué es esto, Lucas???</p></div></div>
     <div class="section">
-        <p>¿Quieres ser mi San Valentín? 😊</p>
-        <img src="3.jfif" class="image">
-        <div class="buttons">
-            <button class="btn yes" onclick="showHearts()">Sí 💖</button>
-            <button class="btn no" id="noBtn" onmouseover="moveNo()">No ❌</button>
+        <div class="card">
+            <p>🎉 ¡SORPRESA! 🎉</p>
+            <button class="playMusicBtn" onclick="playMusic('song1')">🎶 Reproducir Música</button>
         </div>
     </div>
-
-    <div class="section"><p>¿Queda aún más?</p><script>pauseMusic();</script></div>
+    <div class="section"><div class="card"><p>Es una página para decirte lo mucho que Lucas te ama ❤️</p></div></div>
+    <div class="section"><div class="card"><p>Para mostrarte lo bien que se siente contigo</p><img src="1.jfif" class="image"></div></div>
+    <div class="section"><div class="card"><p>Para mostrarte lo seguro que se siente contigo</p><img src="2.jfif" class="image"></div></div>
     <div class="section">
-        <p style="font-size: 2.2rem;">💍 Pamela Troxler, ¿quieres ser novia de Lucas Cáceres? 💍</p>
-        <script>playMusic('song1');</script>
-        <div class="buttons">
-            <button class="btn yes" onclick="showHearts()">Sí 💖</button>
-            <button class="btn no" id="finalNoBtn" onmouseover="moveFinalNo()">No ❌</button>
+        <div class="card">
+            <p>A pesar de que no te guste Kanye West...</p>
+            <button class="playMusicBtn" onclick="playMusic('song2')">🎶 Reproducir Música</button>
+        </div>
+    </div>
+    <div class="section">
+        <div class="card">
+            <p>Él sabe que te gusta más otras canciones...</p>
+            <button class="playMusicBtn" onclick="playMusic('song3')">🎶 Reproducir Música</button>
+        </div>
+    </div>
+    <div class="section"><div class="card"><p>Quiere hacerte una pregunta importante...</p></div></div>
+
+    <div class="section">
+        <div class="card">
+            <p>¿Quieres ser mi San Valentín? 😊</p>
+            <img src="3.jfif" class="image">
+            <div class="buttons">
+                <button class="btn yes" onclick="showHearts()">Sí 💖</button>
+                <button class="btn no" id="noBtn" onmouseover="moveNo()">No ❌</button>
+            </div>
         </div>
     </div>
 
     <div class="hearts"></div>
 
     <script>
-        function startExperience() {
-            document.getElementById("startButton").style.display = "none";
-            playMusic('song1');
-        }
-
         function playMusic(songId) {
             pauseMusic();
             document.getElementById(songId).play();
@@ -183,6 +173,15 @@
         }
 
         function showHearts() {
+            let heartContainer = document.querySelector(".hearts");
+            for (let i = 0; i < 20; i++) {
+                let heart = document.createElement("div");
+                heart.className = "heart";
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+                heartContainer.appendChild(heart);
+                setTimeout(() => heart.remove(), 5000);
+            }
             alert("¡Sabía que dirías que sí! ❤️");
         }
     </script>
