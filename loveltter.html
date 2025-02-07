@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Qué es esto? 🤔</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Georgia', serif;
+        }
+        body {
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            height: 100vh;
+            text-align: center;
+        }
+        .section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            font-size: 2rem;
+            padding: 20px;
+            scroll-snap-align: start;
+            transition: opacity 1s ease-in-out;
+            color: white;
+        }
+        .hidden {
+            opacity: 0;
+        }
+        .section:nth-child(1) { background: #1b1b1b; }
+        .section:nth-child(2) { background: #333; }
+        .section:nth-child(3) { background: #555; }
+        .section:nth-child(4) { background: linear-gradient(135deg, #ff758c, #ff7eb3); }
+        .section:nth-child(5) { background: linear-gradient(135deg, #ffb6c1, #ff69b4); }
+        .section:nth-child(6) { background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
+        .section:nth-child(7) { background: black; }
+        .image {
+            max-width: 80%;
+            height: auto;
+            margin-top: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            border: none;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.2s ease-in-out;
+        }
+        .yes {
+            background: #4CAF50;
+            color: white;
+        }
+        .no {
+            background: red;
+            color: white;
+            position: relative;
+        }
+        .final-no {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="section hidden">
+        <p>Oh, no es una página de BNF...</p>
+    </div>
+
+    <div class="section hidden">
+        <p>¿Qué es esto, Lucas???</p>
+    </div>
+
+    <div class="section hidden">
+        <p>¿Qué tiene Lucas en la mano???</p>
+    </div>
+
+    <div class="section hidden">
+        <p>🎉 ¡SORPRESA! 🎉</p>
+        <script>playMusic('sure_thing.mp3');</script>
+    </div>
+
+    <div class="section hidden">
+        <p>Es una página para decirte lo mucho que Lucas te ama ❤️</p>
+    </div>
+
+    <div class="section hidden">
+        <p>Para mostrarte lo bien que se siente contigo</p>
+        <img src="1.jfif" class="image">
+    </div>
+
+    <div class="section hidden">
+        <p>Para mostrarte lo seguro que se siente contigo</p>
+        <img src="2.jfif" class="image">
+    </div>
+
+    <div class="section hidden">
+        <p>A pesar de que no te guste Kanye West...</p>
+        <script>pauseMusic(); playMusic('bound_2.mp3');</script>
+    </div>
+
+    <div class="section hidden">
+        <p>Él sabe que te gusta más otras canciones...</p>
+        <script>pauseMusic(); playMusic('convoy.mp3');</script>
+    </div>
+
+    <div class="section hidden">
+        <p>Quiere hacerte una pregunta importante...</p>
+        <script>playMusic('sure_thing.mp3');</script>
+    </div>
+
+    <div class="section hidden">
+        <p>¿Quieres ser mi San Valentín? 😊</p>
+        <img src="3.jfif" class="image">
+        <div class="buttons">
+            <button class="btn yes" onclick="nextQuestion()">Sí 💖</button>
+            <button class="btn no" id="noBtn" onmouseover="moveNo()">No ❌</button>
+        </div>
+    </div>
+
+    <div class="section hidden">
+        <p>¿Queda aún más?</p>
+        <script>pauseMusic();</script>
+    </div>
+
+    <div class="section hidden">
+        <p style="font-size: 2.5rem;">💍 Pamela Troxler, ¿quieres ser novia de Lucas Cáceres? 💍</p>
+        <script>playMusic('sure_thing.mp3');</script>
+        <div class="buttons">
+            <button class="btn yes" onclick="alert('¡Sabía que dirías que sí! ❤️')">Sí 💖</button>
+            <button class="btn no final-no" id="finalNoBtn" onmouseover="moveFinalNo()">No ❌</button>
+        </div>
+    </div>
+
+    <script>
+        let song1 = new Audio('sure_thing.mp3');
+        song1.loop = true;
+        let song2 = new Audio('bound_2.mp3');
+        let song3 = new Audio('convoy.mp3');
+
+        function playMusic(song) {
+            pauseMusic();
+            if (song === 'sure_thing.mp3') {
+                song1.play();
+            } else if (song === 'bound_2.mp3') {
+                song2.play();
+            } else if (song === 'convoy.mp3') {
+                song3.play();
+            }
+        }
+
+        function pauseMusic() {
+            song1.pause();
+            song2.pause();
+            song3.pause();
+        }
+
+        function moveNo() {
+            let noBtn = document.getElementById("noBtn");
+            noBtn.style.position = "absolute";
+            noBtn.style.left = Math.random() * 80 + "%";
+            noBtn.style.top = Math.random() * 80 + "%";
+        }
+
+        function moveFinalNo() {
+            let noBtn = document.getElementById("finalNoBtn");
+            noBtn.style.left = Math.random() * 90 + "%";
+        }
+
+        function nextQuestion() {
+            document.documentElement.scrollTop = document.documentElement.scrollHeight;
+        }
+
+        document.addEventListener("scroll", () => {
+            document.querySelectorAll(".section").forEach(section => {
+                if (section.getBoundingClientRect().top < window.innerHeight * 0.75) {
+                    section.classList.remove("hidden");
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
