@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¿Qué es esto? 🤔</title>
+    <title>BNF - Acceso</title>
     <style>
         * {
             margin: 0;
@@ -12,10 +12,60 @@
             font-family: 'Georgia', serif;
         }
         body {
-            scroll-snap-type: y mandatory;
-            overflow-y: scroll;
-            height: 100vh;
             text-align: center;
+            height: 100vh;
+        }
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        }
+        .login-box {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            text-align: center;
+            width: 90%;
+            max-width: 350px;
+        }
+        .logo {
+            font-size: 2em;
+            font-weight: bold;
+            color: #d63384;
+            margin-bottom: 15px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #d63384;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #b52f72;
+        }
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            display: none;
+        }
+        .hidden {
+            display: none;
         }
         .section {
             height: 100vh;
@@ -26,12 +76,7 @@
             text-align: center;
             font-size: 2rem;
             padding: 20px;
-            scroll-snap-align: start;
-            transition: opacity 1s ease-in-out;
             color: white;
-        }
-        .hidden {
-            opacity: 0;
         }
         .section:nth-child(1) { background: #1b1b1b; }
         .section:nth-child(2) { background: #333; }
@@ -60,114 +105,65 @@
             margin: 10px;
             transition: transform 0.2s ease-in-out;
         }
-        .yes {
-            background: #4CAF50;
-            color: white;
-        }
-        .no {
-            background: red;
-            color: white;
-            position: relative;
-        }
-        .final-no {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-        }
+        .yes { background: #4CAF50; color: white; }
+        .no { background: red; color: white; position: relative; }
     </style>
 </head>
 <body>
 
-    <div class="section hidden">
-        <p>Oh, no es una página de BNF...</p>
-    </div>
-
-    <div class="section hidden">
-        <p>¿Qué es esto, Lucas???</p>
-    </div>
-
-    <div class="section hidden">
-        <p>¿Qué tiene Lucas en la mano???</p>
-    </div>
-
-    <div class="section hidden">
-        <p>🎉 ¡SORPRESA! 🎉</p>
-        <script>playMusic('sure_thing.mp3');</script>
-    </div>
-
-    <div class="section hidden">
-        <p>Es una página para decirte lo mucho que Lucas te ama ❤️</p>
-    </div>
-
-    <div class="section hidden">
-        <p>Para mostrarte lo bien que se siente contigo</p>
-        <img src="1.jfif" class="image">
-    </div>
-
-    <div class="section hidden">
-        <p>Para mostrarte lo seguro que se siente contigo</p>
-        <img src="2.jfif" class="image">
-    </div>
-
-    <div class="section hidden">
-        <p>A pesar de que no te guste Kanye West...</p>
-        <script>pauseMusic(); playMusic('bound_2.mp3');</script>
-    </div>
-
-    <div class="section hidden">
-        <p>Él sabe que te gusta más otras canciones...</p>
-        <script>pauseMusic(); playMusic('convoy.mp3');</script>
-    </div>
-
-    <div class="section hidden">
-        <p>Quiere hacerte una pregunta importante...</p>
-        <script>playMusic('sure_thing.mp3');</script>
-    </div>
-
-    <div class="section hidden">
-        <p>¿Quieres ser mi San Valentín? 😊</p>
-        <img src="3.jfif" class="image">
-        <div class="buttons">
-            <button class="btn yes" onclick="nextQuestion()">Sí 💖</button>
-            <button class="btn no" id="noBtn" onmouseover="moveNo()">No ❌</button>
+    <!-- Pantalla de Login -->
+    <div class="login-container" id="loginScreen">
+        <div class="login-box">
+            <div class="logo">BNF</div>
+            <input type="text" id="username" placeholder="Usuario">
+            <input type="password" id="password" placeholder="Contraseña">
+            <button onclick="login()">Ingresar</button>
+            <p class="error-message" id="error">Usuario o contraseña incorrectos</p>
         </div>
     </div>
 
-    <div class="section hidden">
-        <p>¿Queda aún más?</p>
-        <script>pauseMusic();</script>
-    </div>
-
-    <div class="section hidden">
-        <p style="font-size: 2.5rem;">💍 Pamela Troxler, ¿quieres ser novia de Lucas Cáceres? 💍</p>
-        <script>playMusic('sure_thing.mp3');</script>
-        <div class="buttons">
-            <button class="btn yes" onclick="alert('¡Sabía que dirías que sí! ❤️')">Sí 💖</button>
-            <button class="btn no final-no" id="finalNoBtn" onmouseover="moveFinalNo()">No ❌</button>
+    <!-- Página de Sorpresa (oculta al inicio) -->
+    <div id="surprisePage" class="hidden">
+        <div class="section"><p>Oh, no es una página de BNF...</p></div>
+        <div class="section"><p>¿Qué es esto, Lucas???</p></div>
+        <div class="section"><p>¿Qué tiene Lucas en la mano???</p></div>
+        <div class="section"><p>🎉 ¡SORPRESA! 🎉</p></div>
+        <div class="section"><p>Es una página para decirte lo mucho que Lucas te ama ❤️</p></div>
+        <div class="section"><p>Para mostrarte lo bien que se siente contigo</p><img src="1.jfif" class="image"></div>
+        <div class="section"><p>Para mostrarte lo seguro que se siente contigo</p><img src="2.jfif" class="image"></div>
+        <div class="section"><p>A pesar de que no te guste Kanye West...</p></div>
+        <div class="section"><p>Él sabe que te gusta más otras canciones...</p></div>
+        <div class="section"><p>Quiere hacerte una pregunta importante...</p></div>
+        <div class="section">
+            <p>¿Quieres ser mi San Valentín? 😊</p>
+            <img src="3.jfif" class="image">
+            <div class="buttons">
+                <button class="btn yes" onclick="nextQuestion()">Sí 💖</button>
+                <button class="btn no" id="noBtn" onmouseover="moveNo()">No ❌</button>
+            </div>
+        </div>
+        <div class="section"><p>¿Queda aún más?</p></div>
+        <div class="section">
+            <p style="font-size: 2.5rem;">💍 Pamela Troxler, ¿quieres ser novia de Lucas Cáceres? 💍</p>
+            <div class="buttons">
+                <button class="btn yes" onclick="alert('¡Sabía que dirías que sí! ❤️')">Sí 💖</button>
+                <button class="btn no" id="finalNoBtn" onmouseover="moveFinalNo()">No ❌</button>
+            </div>
         </div>
     </div>
 
     <script>
-        let song1 = new Audio('sure_thing.mp3');
-        song1.loop = true;
-        let song2 = new Audio('bound_2.mp3');
-        let song3 = new Audio('convoy.mp3');
+        function login() {
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+            const errorMsg = document.getElementById('error');
 
-        function playMusic(song) {
-            pauseMusic();
-            if (song === 'sure_thing.mp3') {
-                song1.play();
-            } else if (song === 'bound_2.mp3') {
-                song2.play();
-            } else if (song === 'convoy.mp3') {
-                song3.play();
+            if (user === 'pamela' && pass === '12345') {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('surprisePage').classList.remove('hidden');
+            } else {
+                errorMsg.style.display = 'block';
             }
-        }
-
-        function pauseMusic() {
-            song1.pause();
-            song2.pause();
-            song3.pause();
         }
 
         function moveNo() {
@@ -185,14 +181,6 @@
         function nextQuestion() {
             document.documentElement.scrollTop = document.documentElement.scrollHeight;
         }
-
-        document.addEventListener("scroll", () => {
-            document.querySelectorAll(".section").forEach(section => {
-                if (section.getBoundingClientRect().top < window.innerHeight * 0.75) {
-                    section.classList.remove("hidden");
-                }
-            });
-        });
     </script>
 
 </body>
