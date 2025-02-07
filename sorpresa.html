@@ -17,6 +17,7 @@
             height: 100vh;
             background: black;
             text-align: center;
+            position: relative;
         }
         .section {
             height: 100vh;
@@ -32,16 +33,14 @@
             text-align: center;
             width: 100%;
         }
-        .hidden {
-            opacity: 0;
-        }
-        .section:nth-child(1) { background: #1b1b1b; }
-        .section:nth-child(2) { background: #333; }
-        .section:nth-child(3) { background: #555; }
+        /* Fondos de colores lindos */
+        .section:nth-child(1) { background: #FFB6C1; }
+        .section:nth-child(2) { background: #FF69B4; }
+        .section:nth-child(3) { background: #FFA07A; }
         .section:nth-child(4) { background: linear-gradient(135deg, #ff758c, #ff7eb3); }
         .section:nth-child(5) { background: linear-gradient(135deg, #ffb6c1, #ff69b4); }
         .section:nth-child(6) { background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
-        .section:nth-child(7) { background: black; }
+        .section:nth-child(7) { background: #FFC0CB; }
         
         .image {
             max-width: 90%;
@@ -70,6 +69,45 @@
         .yes { background: #4CAF50; color: white; border-radius: 5px; }
         .no { background: red; color: white; position: relative; border-radius: 5px; }
 
+        /* Botón de inicio */
+        #startButton {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #FF69B4;
+            color: white;
+            font-size: 1.5rem;
+            padding: 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        /* Animación de corazones */
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .heart {
+            position: absolute;
+            bottom: -10px;
+            width: 20px;
+            height: 20px;
+            background: red;
+            opacity: 0.7;
+            clip-path: polygon(50% 0%, 100% 35%, 82% 100%, 50% 75%, 18% 100%, 0% 35%);
+            animation: float 5s linear infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+        }
+
         @media (max-width: 600px) {
             .section {
                 font-size: 1.4rem;
@@ -89,6 +127,8 @@
 </head>
 <body>
 
+    <button id="startButton" onclick="startExperience()">🎶 Iniciar Sorpresa</button>
+
     <audio id="song1" src="sure_thing.mp3"></audio>
     <audio id="song2" src="bound_2.mp3"></audio>
     <audio id="song3" src="convoy.mp3"></audio>
@@ -96,7 +136,7 @@
     <div class="section"><p>Oh, no es una página de BNF...</p></div>
     <div class="section"><p>¿Qué es esto, Lucas???</p></div>
     <div class="section"><p>¿Qué tiene Lucas en la mano???</p></div>
-    <div class="section"><p>🎉 ¡SORPRESA! 🎉</p><script>playMusic('song1');</script></div>
+    <div class="section"><p>🎉 ¡SORPRESA! 🎉</p></div>
     <div class="section"><p>Es una página para decirte lo mucho que Lucas te ama ❤️</p></div>
     <div class="section"><p>Para mostrarte lo bien que se siente contigo</p><img src="1.jfif" class="image"></div>
     <div class="section"><p>Para mostrarte lo seguro que se siente contigo</p><img src="2.jfif" class="image"></div>
@@ -108,7 +148,7 @@
         <p>¿Quieres ser mi San Valentín? 😊</p>
         <img src="3.jfif" class="image">
         <div class="buttons">
-            <button class="btn yes" onclick="nextQuestion()">Sí 💖</button>
+            <button class="btn yes" onclick="showHearts()">Sí 💖</button>
             <button class="btn no" id="noBtn" onmouseover="moveNo()">No ❌</button>
         </div>
     </div>
@@ -118,12 +158,19 @@
         <p style="font-size: 2.2rem;">💍 Pamela Troxler, ¿quieres ser novia de Lucas Cáceres? 💍</p>
         <script>playMusic('song1');</script>
         <div class="buttons">
-            <button class="btn yes" onclick="alert('¡Sabía que dirías que sí! ❤️')">Sí 💖</button>
+            <button class="btn yes" onclick="showHearts()">Sí 💖</button>
             <button class="btn no" id="finalNoBtn" onmouseover="moveFinalNo()">No ❌</button>
         </div>
     </div>
 
+    <div class="hearts"></div>
+
     <script>
+        function startExperience() {
+            document.getElementById("startButton").style.display = "none";
+            playMusic('song1');
+        }
+
         function playMusic(songId) {
             pauseMusic();
             document.getElementById(songId).play();
@@ -135,29 +182,9 @@
             document.getElementById("song3").pause();
         }
 
-        function moveNo() {
-            let noBtn = document.getElementById("noBtn");
-            noBtn.style.position = "absolute";
-            noBtn.style.left = Math.random() * 80 + "%";
-            noBtn.style.top = Math.random() * 80 + "%";
+        function showHearts() {
+            alert("¡Sabía que dirías que sí! ❤️");
         }
-
-        function moveFinalNo() {
-            let noBtn = document.getElementById("finalNoBtn");
-            noBtn.style.left = Math.random() * 90 + "%";
-        }
-        
-        function nextQuestion() {
-            document.documentElement.scrollTop = document.documentElement.scrollHeight;
-        }
-        
-        document.addEventListener("scroll", () => {
-            document.querySelectorAll(".section").forEach(section => {
-                if (section.getBoundingClientRect().top < window.innerHeight * 0.75) {
-                    section.classList.remove("hidden");
-                }
-            });
-        });
     </script>
 
 </body>
